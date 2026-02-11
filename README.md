@@ -7,6 +7,12 @@ Application mobile Android pour jouer au jeu du Buffalo avec détection Bluetoot
 ![Platform](https://img.shields.io/badge/Platform-Android-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+## 📥 Télécharger l'APK
+
+[![Télécharger APK](https://img.shields.io/badge/Télécharger-APK-brightgreen?style=for-the-badge&logo=android)](https://github.com/Tomtoxi44/Buffalo/releases/latest)
+
+Clique sur le badge ci-dessus pour télécharger la dernière version de l'application !
+
 ## 📱 Description
 
 **Buffalo** est un jeu de bar légendaire où tu dois toujours boire avec ta main non-dominante. Cette application te permet de :
