@@ -31,6 +31,6 @@
         
         <!-- Eye highlights -->
         <ellipse cx="-27" cy="12" rx="4" ry="5" fill="#FFF" />
-        <ellipse cx="33" cy="12" rx="4" ry="5" fill="#FFF" />
+        <ellipse cx="27" cy="12" rx="4" ry="5" fill="#FFF" />
     </g>
 </svg>
