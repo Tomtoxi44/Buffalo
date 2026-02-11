@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BuffaloApp.ViewModels"
+             x:Class="BuffaloApp.Views.LeaderboardPage"
+             x:DataType="vm:LeaderboardViewModel"
+             Title="Classement"
+             BackgroundColor="#1a1a2e">
+
+    <Grid RowDefinitions="Auto,*" Padding="20">
+        
+        <!-- Mon classement -->
+        <Frame BackgroundColor="#16213e" 
+               CornerRadius="15" 
+               Padding="20"
+               BorderColor="Transparent">
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Label Text="🏆" FontSize="40" VerticalOptions="Center"/>
+                
+                <VerticalStackLayout Grid.Column="1" Margin="15,0" VerticalOptions="Center">
+                    <Label Text="Mon classement" 
+                           FontSize="14" 
+                           TextColor="#8892b0"/>
+                    <Label Text="{Binding MyRank, StringFormat='#{0}'}" 
+                           FontSize="28" 
+                           FontAttributes="Bold"
+                           TextColor="White"/>
+                </VerticalStackLayout>
+                
+                <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End">
+                    <Label Text="{Binding MyBuffaloGiven}" 
+                           FontSize="24" 
+                           FontAttributes="Bold"
+                           TextColor="#4ecca3"
+                           HorizontalOptions="End"/>
+                    <Label Text="Buffalo donnés" 
+                           FontSize="12" 
+                           TextColor="#8892b0"
+                           HorizontalOptions="End"/>
+                </VerticalStackLayout>
+            </Grid>
+        </Frame>
+
+        <!-- Liste du classement -->
+        <Frame Grid.Row="1" 
+               BackgroundColor="#16213e" 
+               CornerRadius="15" 
+               Padding="15"
+               Margin="0,15,0,0"
+               BorderColor="Transparent">
+            <Grid RowDefinitions="Auto,*">
+                <Label Text="🦬 Top Buffalo Hunters" 
+                       FontSize="18" 
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       Margin="5,0,0,10"/>
+
+                <CollectionView Grid.Row="1" 
+                                ItemsSource="{Binding Leaderboard}">
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                            <Label Text="🦬" FontSize="48" HorizontalOptions="Center"/>
+                            <Label Text="Pas encore de classement"
+                                   FontSize="14"
+                                   TextColor="#8892b0"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="Commencez à donner des Buffalo !"
+                                   FontSize="12"
+                                   TextColor="#8892b0"
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                    
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:LeaderboardDisplayItem">
+                            <Frame Margin="0,5"
+                                   Padding="15"
+                                   CornerRadius="10"
+                                   BorderColor="Transparent">
+                                <Frame.BackgroundColor>
+                                    <MultiBinding Converter="{StaticResource LeaderboardBackgroundConverter}">
+                                        <Binding Path="Rank"/>
+                                        <Binding Path="IsCurrentUser"/>
+                                    </MultiBinding>
+                                </Frame.BackgroundColor>
+                                
+                                <Grid ColumnDefinitions="50,*,Auto">
+                                    <Label Text="{Binding RankEmoji}" 
+                                           FontSize="24" 
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center"/>
+                                    
+                                    <Label Grid.Column="1" 
+                                           Text="{Binding Pseudo}" 
+                                           FontSize="16" 
+                                           FontAttributes="Bold"
+                                           TextColor="White"
+                                           VerticalOptions="Center"/>
+                                    
+                                    <HorizontalStackLayout Grid.Column="2" Spacing="5">
+                                        <Label Text="{Binding BuffaloGiven}" 
+                                               FontSize="18" 
+                                               FontAttributes="Bold"
+                                               TextColor="#4ecca3"
+                                               VerticalOptions="Center"/>
+                                        <Label Text="🦬" 
+                                               FontSize="16"
+                                               VerticalOptions="Center"/>
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Frame>
+
+        <ActivityIndicator Grid.RowSpan="2"
+                           IsRunning="{Binding IsLoading}"
+                           IsVisible="{Binding IsLoading}"
+                           Color="#e94560"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+    </Grid>
+</ContentPage>

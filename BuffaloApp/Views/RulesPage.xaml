@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BuffaloApp.ViewModels"
+             x:Class="BuffaloApp.Views.RulesPage"
+             x:DataType="vm:RulesViewModel"
+             Title="Règles du Buffalo"
+             BackgroundColor="#1a1a2e">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            
+            <!-- Titre -->
+            <Frame BackgroundColor="#e94560" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   BorderColor="Transparent">
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <Label Text="🦬" FontSize="64" HorizontalOptions="Center"/>
+                    <Label Text="LE BUFFALO" 
+                           FontSize="28" 
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Les règles officielles" 
+                           FontSize="14" 
+                           TextColor="White"
+                           Opacity="0.8"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Liste des règles -->
+            <CollectionView ItemsSource="{Binding Rules}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:RuleItem">
+                        <Frame BackgroundColor="#16213e" 
+                               CornerRadius="15" 
+                               Padding="20"
+                               Margin="0,5"
+                               BorderColor="Transparent">
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="15">
+                                <Frame BackgroundColor="#0f3460" 
+                                       CornerRadius="25" 
+                                       WidthRequest="50" 
+                                       HeightRequest="50"
+                                       Padding="0"
+                                       BorderColor="Transparent"
+                                       VerticalOptions="Start">
+                                    <Label Text="{Binding Icon}" 
+                                           FontSize="24" 
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center"/>
+                                </Frame>
+                                
+                                <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                    <Label FontSize="12" TextColor="#e94560">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="RÈGLE " FontAttributes="Bold"/>
+                                                <Span Text="{Binding Number}" FontAttributes="Bold"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Text="{Binding Title}" 
+                                           FontSize="18" 
+                                           FontAttributes="Bold"
+                                           TextColor="White"/>
+                                    <Label Text="{Binding Description}" 
+                                           FontSize="14" 
+                                           TextColor="#8892b0"
+                                           LineBreakMode="WordWrap"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Note importante -->
+            <Frame BackgroundColor="#ffc107" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   BorderColor="Transparent">
+                <Label Text="{Binding ImportantNote}" 
+                       FontSize="14" 
+                       TextColor="#1a1a2e"
+                       LineBreakMode="WordWrap"/>
+            </Frame>
+
+            <!-- Footer -->
+            <Label Text="Buvez responsablement 🍺" 
+                   FontSize="12" 
+                   TextColor="#8892b0"
+                   HorizontalOptions="Center"
+                   Margin="0,10,0,20"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

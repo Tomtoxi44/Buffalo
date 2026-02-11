@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BuffaloApp.ViewModels"
+             xmlns:models="clr-namespace:BuffaloApp.Models"
+             x:Class="BuffaloApp.Views.MainPage"
+             x:DataType="vm:MainViewModel"
+             Title="Buffalo"
+             BackgroundColor="#1a1a2e">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20">
+        
+        <!-- Header avec stats -->
+        <Frame Grid.Row="0" 
+               BackgroundColor="#16213e" 
+               CornerRadius="15" 
+               Padding="20"
+               BorderColor="Transparent">
+            <Grid ColumnDefinitions="*,Auto">
+                <VerticalStackLayout>
+                    <Label Text="🦬 Buffalo Mode" 
+                           FontSize="24" 
+                           FontAttributes="Bold"
+                           TextColor="White"/>
+                    <Label Text="{Binding StatusMessage}" 
+                           FontSize="14" 
+                           TextColor="#8892b0"
+                           Margin="0,5,0,0"/>
+                </VerticalStackLayout>
+                
+                <Switch Grid.Column="1" 
+                        IsToggled="{Binding IsPlaying}"
+                        OnColor="#e94560"
+                        ThumbColor="White"
+                        VerticalOptions="Center"
+                        Toggled="OnBuffaloModeToggled"/>
+            </Grid>
+        </Frame>
+
+        <!-- Stats rapides -->
+        <Grid Grid.Row="1" 
+              ColumnDefinitions="*,*,*,*" 
+              Margin="0,15,0,0"
+              ColumnSpacing="10">
+            
+            <Frame BackgroundColor="#16213e" CornerRadius="10" Padding="10" BorderColor="Transparent">
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <Label Text="{Binding BuffaloGiven}" 
+                           FontSize="24" 
+                           FontAttributes="Bold"
+                           TextColor="#4ecca3"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Donnés" 
+                           FontSize="10" 
+                           TextColor="#8892b0"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+            
+            <Frame Grid.Column="1" BackgroundColor="#16213e" CornerRadius="10" Padding="10" BorderColor="Transparent">
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <Label Text="{Binding BuffaloReceived}" 
+                           FontSize="24" 
+                           FontAttributes="Bold"
+                           TextColor="#e94560"
+                           HorizontalOptions="Center"/>
+                    <Label Text="Reçus" 
+                           FontSize="10" 
+                           TextColor="#8892b0"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+            
+            <Frame Grid.Column="2" BackgroundColor="#16213e" CornerRadius="10" Padding="10" BorderColor="Transparent">
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <Label Text="{Binding SlateOwedToYou}" 
+                           FontSize="24" 
+                           FontAttributes="Bold"
+                           TextColor="#ffc107"
+                           HorizontalOptions="Center"/>
+                    <Label Text="À récup" 
+                           FontSize="10" 
+                           TextColor="#8892b0"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+            
+            <Frame Grid.Column="3" BackgroundColor="#16213e" CornerRadius="10" Padding="10" BorderColor="Transparent">
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <Label Text="{Binding SlateOwed}" 
+                           FontSize="24" 
+                           FontAttributes="Bold"
+                           TextColor="#ff6b6b"
+                           HorizontalOptions="Center"/>
+                    <Label Text="À payer" 
+                           FontSize="10" 
+                           TextColor="#8892b0"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+
+        <!-- Liste des joueurs à proximité -->
+        <Frame Grid.Row="2" 
+               BackgroundColor="#16213e" 
+               CornerRadius="15" 
+               Padding="15"
+               Margin="0,15,0,0"
+               BorderColor="Transparent">
+            <Grid RowDefinitions="Auto,*">
+                <HorizontalStackLayout>
+                    <Label Text="📍 Joueurs à proximité" 
+                           FontSize="18" 
+                           FontAttributes="Bold"
+                           TextColor="White"/>
+                    <Label Text="{Binding NearbyPlayersCount, StringFormat=' ({0})'}" 
+                           FontSize="18" 
+                           TextColor="#8892b0"/>
+                </HorizontalStackLayout>
+
+                <CollectionView Grid.Row="1" 
+                                ItemsSource="{Binding NearbyPlayers}"
+                                Margin="0,10,0,0">
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout VerticalOptions="Center" 
+                                             HorizontalOptions="Center"
+                                             Padding="20">
+                            <Label Text="🔍" FontSize="48" HorizontalOptions="Center"/>
+                            <Label Text="{Binding IsPlaying, Converter={StaticResource BoolToSearchTextConverter}}"
+                                   FontSize="14"
+                                   TextColor="#8892b0"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"/>
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                    
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:NearbyPlayer">
+                            <Frame BackgroundColor="#0f3460" 
+                                   CornerRadius="10" 
+                                   Padding="15"
+                                   Margin="0,5"
+                                   BorderColor="Transparent">
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="15">
+                                    <Frame BackgroundColor="#e94560" 
+                                           CornerRadius="25" 
+                                           WidthRequest="50" 
+                                           HeightRequest="50"
+                                           Padding="0"
+                                           BorderColor="Transparent">
+                                        <Label Text="🦬" 
+                                               FontSize="24" 
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center"/>
+                                    </Frame>
+                                    
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label Text="{Binding Player.Pseudo}" 
+                                               FontSize="16" 
+                                               FontAttributes="Bold"
+                                               TextColor="White"/>
+                                        <Label Text="{Binding DistanceDescription}" 
+                                               FontSize="12" 
+                                               TextColor="#8892b0"/>
+                                        <HorizontalStackLayout Spacing="10" IsVisible="{Binding SlateOwedToYou, Converter={StaticResource IntToBoolConverter}}">
+                                            <Label Text="📝" FontSize="12"/>
+                                            <Label Text="{Binding SlateOwedToYou, StringFormat='Ardoise: {0}'}" 
+                                                   FontSize="12" 
+                                                   TextColor="#ffc107"/>
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                    
+                                    <VerticalStackLayout Grid.Column="2" Spacing="5">
+                                        <Button Text="BUFFALO!"
+                                                BackgroundColor="#e94560"
+                                                TextColor="White"
+                                                FontAttributes="Bold"
+                                                CornerRadius="8"
+                                                Padding="15,8"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=GiveBuffaloCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                        
+                                        <Button Text="Ardoise"
+                                                BackgroundColor="#ffc107"
+                                                TextColor="#1a1a2e"
+                                                CornerRadius="8"
+                                                Padding="15,5"
+                                                FontSize="12"
+                                                IsVisible="{Binding SlateOwedToYou, Converter={StaticResource IntToBoolConverter}}"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=SettleSlateCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Frame>
+
+        <!-- Indicateur de scan -->
+        <HorizontalStackLayout Grid.Row="3" 
+                                HorizontalOptions="Center" 
+                                Margin="0,10,0,0"
+                                IsVisible="{Binding IsScanning}">
+            <ActivityIndicator IsRunning="{Binding IsScanning}" 
+                               Color="#4ecca3"
+                               WidthRequest="20"
+                               HeightRequest="20"/>
+            <Label Text=" Recherche en cours..." 
+                   TextColor="#4ecca3" 
+                   FontSize="12"
+                   VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

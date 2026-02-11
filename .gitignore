@@ -1,0 +1,86 @@
+# .NET MAUI / Xamarin
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.cache
+*.log
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache/options
+.vs/
+.vscode/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
+
+# Android
+*.apk
+*.aab
+*.dex
+*.ap_
+*.class
+local.properties
+.gradle/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# iOS
+*.ipa
+*.dSYM.zip
+*.dSYM
+Pods/
+*.xcworkspace
+!default.xcworkspace
+xcuserdata/
+
+# macOS
+.DS_Store
+*.swp
+*~.nib
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Rider
+.idea/
+*.sln.iml
+
+# SQLite databases (local dev)
+*.db3
+*.db
+
+# Backup files
+*~
+*.orig
+*.bak
+
+# Other
+node_modules/
+*.tmp

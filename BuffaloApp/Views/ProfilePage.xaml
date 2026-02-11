@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BuffaloApp.ViewModels"
+             x:Class="BuffaloApp.Views.ProfilePage"
+             x:DataType="vm:ProfileViewModel"
+             Title="Mon Profil"
+             BackgroundColor="#1a1a2e">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            
+            <!-- Avatar et pseudo -->
+            <Frame BackgroundColor="#16213e" 
+                   CornerRadius="15" 
+                   Padding="30"
+                   BorderColor="Transparent"
+                   HorizontalOptions="Center">
+                <VerticalStackLayout HorizontalOptions="Center" Spacing="15">
+                    <Frame BackgroundColor="#e94560" 
+                           CornerRadius="50" 
+                           WidthRequest="100" 
+                           HeightRequest="100"
+                           Padding="0"
+                           BorderColor="Transparent"
+                           HorizontalOptions="Center">
+                        <Label Text="🦬" 
+                               FontSize="48" 
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+                    </Frame>
+                    
+                    <Entry Text="{Binding Pseudo}" 
+                           Placeholder="Ton pseudo"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           PlaceholderColor="#8892b0"
+                           HorizontalTextAlignment="Center"
+                           BackgroundColor="Transparent"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Main dominante -->
+            <Frame BackgroundColor="#16213e" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   BorderColor="Transparent">
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout>
+                        <Label Text="Main dominante" 
+                               FontSize="16" 
+                               FontAttributes="Bold"
+                               TextColor="White"/>
+                        <Label Text="{Binding DominantHand}" 
+                               FontSize="14" 
+                               TextColor="#8892b0"/>
+                        <Label Text="(Tu dois boire avec l'AUTRE main !)" 
+                               FontSize="12" 
+                               TextColor="#e94560"
+                               FontAttributes="Italic"/>
+                    </VerticalStackLayout>
+                    
+                    <Button Grid.Column="1"
+                            Text="{Binding IsRightHanded, Converter={StaticResource BoolToHandEmojiConverter}}"
+                            FontSize="32"
+                            BackgroundColor="#0f3460"
+                            CornerRadius="10"
+                            WidthRequest="60"
+                            HeightRequest="60"
+                            Command="{Binding ToggleHandCommand}"/>
+                </Grid>
+            </Frame>
+
+            <!-- Statistiques -->
+            <Frame BackgroundColor="#16213e" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   BorderColor="Transparent">
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="📊 Mes statistiques" 
+                           FontSize="18" 
+                           FontAttributes="Bold"
+                           TextColor="White"/>
+                    
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" RowSpacing="15" ColumnSpacing="15">
+                        <Frame BackgroundColor="#0f3460" CornerRadius="10" Padding="15" BorderColor="Transparent">
+                            <VerticalStackLayout HorizontalOptions="Center">
+                                <Label Text="{Binding BuffaloGiven}" 
+                                       FontSize="32" 
+                                       FontAttributes="Bold"
+                                       TextColor="#4ecca3"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="Buffalo donnés" 
+                                       FontSize="12" 
+                                       TextColor="#8892b0"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                        
+                        <Frame Grid.Column="1" BackgroundColor="#0f3460" CornerRadius="10" Padding="15" BorderColor="Transparent">
+                            <VerticalStackLayout HorizontalOptions="Center">
+                                <Label Text="{Binding BuffaloReceived}" 
+                                       FontSize="32" 
+                                       FontAttributes="Bold"
+                                       TextColor="#e94560"
+                                       HorizontalOptions="Center"/>
+                                <Label Text="Buffalo reçus" 
+                                       FontSize="12" 
+                                       TextColor="#8892b0"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Info membre -->
+            <Frame BackgroundColor="#16213e" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   BorderColor="Transparent">
+                <HorizontalStackLayout Spacing="10">
+                    <Label Text="📅" FontSize="20"/>
+                    <Label Text="{Binding MemberSince}" 
+                           FontSize="14" 
+                           TextColor="#8892b0"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+            </Frame>
+
+            <!-- Bouton sauvegarder -->
+            <Button Text="💾 Sauvegarder"
+                    BackgroundColor="#4ecca3"
+                    TextColor="#1a1a2e"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    CornerRadius="10"
+                    Padding="20,15"
+                    Command="{Binding SaveProfileCommand}"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

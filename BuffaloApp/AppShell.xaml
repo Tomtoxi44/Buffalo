@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="BuffaloApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:BuffaloApp.Views"
+    Title="Buffalo"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.TabBarBackgroundColor="#16213e"
+    Shell.TabBarTitleColor="#8892b0"
+    Shell.TabBarUnselectedColor="#8892b0"
+    Shell.TabBarForegroundColor="#e94560">
+
+    <TabBar>
+        <ShellContent Title="Buffalo"
+                      ContentTemplate="{DataTemplate views:MainPage}"/>
+
+        <ShellContent Title="Ardoise"
+                      ContentTemplate="{DataTemplate views:SlatePage}"/>
+
+        <ShellContent Title="Classement"
+                      ContentTemplate="{DataTemplate views:LeaderboardPage}"/>
+
+        <ShellContent Title="Règles"
+                      ContentTemplate="{DataTemplate views:RulesPage}"/>
+
+        <ShellContent Title="Profil"
+                      ContentTemplate="{DataTemplate views:ProfilePage}"/>
+    </TabBar>
+
+</Shell>
