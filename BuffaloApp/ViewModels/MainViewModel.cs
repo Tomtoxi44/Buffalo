@@ -12,6 +12,10 @@ namespace BuffaloApp.ViewModels;
 /// </summary>
 public partial class MainViewModel : ObservableObject
 {
+    private const string ConnectionMethodBluetooth = "Bluetooth";
+    private const string ConnectionMethodOther = "Autre (à venir)";
+    private const string ConnectionMethodCancel = "Annuler";
+
     private readonly BuffaloDatabase _database;
     private readonly IBluetoothService _bluetoothService;
     private readonly BuffaloService _buffaloService;
@@ -99,8 +103,18 @@ public partial class MainViewModel : ObservableObject
 
         if (IsPlaying)
         {
-            await StartDetectionAsync();
-            StatusMessage = "🦬 Mode Buffalo ACTIVÉ !";
+            var success = await StartDetectionAsync();
+            if (success)
+            {
+                StatusMessage = "Mode Buffalo ACTIVÉ !";
+            }
+            else
+            {
+                // Revert the toggle if activation failed
+                IsPlaying = false;
+                LocalPlayer.IsPlaying = false;
+                await _database.SavePlayerAsync(LocalPlayer);
+            }
         }
         else
         {
@@ -110,15 +124,44 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task StartDetectionAsync()
+    private async Task<bool> StartDetectionAsync()
     {
         try
         {
+            // Check if we can display the dialog
+            if (Application.Current?.MainPage == null)
+            {
+                StatusMessage = "Erreur: Interface utilisateur non disponible";
+                return false;
+            }
+
+            // Ask user for connection method preference
+            var connectionMethod = await Application.Current.MainPage.DisplayActionSheet(
+                "Choisir la méthode de connexion",
+                ConnectionMethodCancel,
+                null,
+                ConnectionMethodBluetooth,
+                ConnectionMethodOther
+            );
+
+            if (connectionMethod == ConnectionMethodCancel || connectionMethod == null)
+            {
+                StatusMessage = "Activation annulée";
+                return false;
+            }
+
+            if (connectionMethod == ConnectionMethodOther)
+            {
+                StatusMessage = "Cette option sera disponible prochainement";
+                return false;
+            }
+
+            // Proceed with Bluetooth
             var hasPermissions = await _bluetoothService.RequestPermissionsAsync();
             if (!hasPermissions)
             {
-                StatusMessage = "⚠️ Permissions Bluetooth requises";
-                return;
+                StatusMessage = "Permissions Bluetooth requises";
+                return false;
             }
 
             await _bluetoothService.StartScanningAsync();
@@ -129,11 +172,13 @@ public partial class MainViewModel : ObservableObject
             }
 
             IsScanning = true;
-            StatusMessage = "🔍 Recherche de joueurs...";
+            StatusMessage = "Recherche de joueurs...";
+            return true;
         }
         catch (Exception ex)
         {
             StatusMessage = $"Erreur: {ex.Message}";
+            return false;
         }
     }
 
@@ -157,7 +202,7 @@ public partial class MainViewModel : ObservableObject
             null // TODO: Ajouter la géolocalisation pour le nom du bar
         );
 
-        StatusMessage = $"🦬 BUFFALO envoyé à {nearbyPlayer.Player.Pseudo} !";
+        StatusMessage = $"BUFFALO envoyé à {nearbyPlayer.Player.Pseudo} !";
         await RefreshStatsAsync();
 
         // Affiche une notification
@@ -176,7 +221,7 @@ public partial class MainViewModel : ObservableObject
         if (slateWithPlayer != null)
         {
             await _buffaloService.SettleSlateAsync(slateWithPlayer);
-            StatusMessage = $"🦬 Ardoise réglée avec {nearbyPlayer.Player.Pseudo} !";
+            StatusMessage = $"Ardoise réglée avec {nearbyPlayer.Player.Pseudo} !";
             
             // Met à jour le compteur d'ardoise du joueur proche
             nearbyPlayer.SlateOwedToYou--;
@@ -208,7 +253,7 @@ public partial class MainViewModel : ObservableObject
 
                 NearbyPlayers.Add(nearbyPlayer);
                 NearbyPlayersCount = NearbyPlayers.Count;
-                StatusMessage = $"🎯 {nearbyPlayer.Player.Pseudo} détecté !";
+                StatusMessage = $"{nearbyPlayer.Player.Pseudo} détecté !";
             }
         });
     }
@@ -231,7 +276,7 @@ public partial class MainViewModel : ObservableObject
         await MainThread.InvokeOnMainThreadAsync(async () =>
         {
             var giver = await _database.GetPlayerByIdAsync(buffaloEvent.GiverId);
-            StatusMessage = $"🦬 BUFFALO reçu de {giver?.Pseudo ?? "quelqu'un"} !";
+            StatusMessage = $"BUFFALO reçu de {giver?.Pseudo ?? "quelqu'un"} !";
 
             // Affiche une alerte pour accepter ou refuser
             // Ceci sera géré par la View
