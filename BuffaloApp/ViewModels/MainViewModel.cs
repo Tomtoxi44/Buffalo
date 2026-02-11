@@ -12,6 +12,10 @@ namespace BuffaloApp.ViewModels;
 /// </summary>
 public partial class MainViewModel : ObservableObject
 {
+    private const string ConnectionMethodBluetooth = "Bluetooth";
+    private const string ConnectionMethodOther = "Autre (à venir)";
+    private const string ConnectionMethodCancel = "Annuler";
+
     private readonly BuffaloDatabase _database;
     private readonly IBluetoothService _bluetoothService;
     private readonly BuffaloService _buffaloService;
@@ -124,22 +128,29 @@ public partial class MainViewModel : ObservableObject
     {
         try
         {
+            // Check if we can display the dialog
+            if (Application.Current?.MainPage == null)
+            {
+                StatusMessage = "Erreur: Interface utilisateur non disponible";
+                return false;
+            }
+
             // Ask user for connection method preference
-            var connectionMethod = await Application.Current?.MainPage?.DisplayActionSheet(
+            var connectionMethod = await Application.Current.MainPage.DisplayActionSheet(
                 "Choisir la méthode de connexion",
-                "Annuler",
+                ConnectionMethodCancel,
                 null,
-                "Bluetooth",
-                "Autre (à venir)"
+                ConnectionMethodBluetooth,
+                ConnectionMethodOther
             );
 
-            if (connectionMethod == "Annuler" || connectionMethod == null)
+            if (connectionMethod == ConnectionMethodCancel || connectionMethod == null)
             {
                 StatusMessage = "Activation annulée";
                 return false;
             }
 
-            if (connectionMethod == "Autre (à venir)")
+            if (connectionMethod == ConnectionMethodOther)
             {
                 StatusMessage = "Cette option sera disponible prochainement";
                 return false;
