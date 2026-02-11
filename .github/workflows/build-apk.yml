@@ -49,13 +49,6 @@ jobs:
         path: ./output/*.apk
         if-no-files-found: error
     
-    - name: Get APK file name
-      id: apk-name
-      run: |
-        APK_FILE=$(ls ./output/*.apk | head -n 1)
-        echo "apk_path=$APK_FILE" >> $GITHUB_OUTPUT
-        echo "apk_name=$(basename $APK_FILE)" >> $GITHUB_OUTPUT
-    
     - name: Create Release
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       uses: softprops/action-gh-release@v1
