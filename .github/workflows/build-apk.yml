@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
     
     steps:
     - name: Checkout code
@@ -48,3 +48,20 @@ jobs:
         name: buffalo-app
         path: ./output/*.apk
         if-no-files-found: error
+    
+    - name: Create Release
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v1.0-build-${{ github.run_number }}
+        name: Buffalo APK Build ${{ github.run_number }}
+        body: |
+          🦬 Buffalo App - Build automatique
+          
+          **Build #${{ github.run_number }}**
+          Commit: ${{ github.sha }}
+          
+          📱 Télécharge l'APK ci-dessous et installe-la sur ton appareil Android !
+        files: ./output/*.apk
+        draft: false
+        prerelease: false
