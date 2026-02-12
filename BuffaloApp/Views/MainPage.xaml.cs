@@ -4,24 +4,36 @@ namespace BuffaloApp.Views;
 
 public partial class MainPage : ContentPage
 {
-    private readonly MainViewModel _viewModel;
+    private MainViewModel? _viewModel;
 
-    public MainPage(MainViewModel viewModel)
+    public MainPage()
     {
         InitializeComponent();
-        _viewModel = viewModel;
-        BindingContext = viewModel;
+    }
+
+    protected override void OnHandlerChanged()
+    {
+        base.OnHandlerChanged();
+        
+        if (Handler?.MauiContext?.Services != null && _viewModel == null)
+        {
+            _viewModel = Handler.MauiContext.Services.GetRequiredService<MainViewModel>();
+            BindingContext = _viewModel;
+        }
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await _viewModel.InitializeAsync();
+        if (_viewModel != null)
+        {
+            await _viewModel.InitializeAsync();
+        }
     }
 
     private async void OnBuffaloModeToggled(object? sender, ToggledEventArgs e)
     {
-        if (_viewModel.TogglePlayingCommand.CanExecute(null))
+        if (_viewModel?.TogglePlayingCommand.CanExecute(null) == true)
         {
             await _viewModel.TogglePlayingCommand.ExecuteAsync(null);
         }

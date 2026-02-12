@@ -4,18 +4,30 @@ namespace BuffaloApp.Views;
 
 public partial class SlatePage : ContentPage
 {
-    private readonly SlateViewModel _viewModel;
+    private SlateViewModel? _viewModel;
 
-    public SlatePage(SlateViewModel viewModel)
+    public SlatePage()
     {
         InitializeComponent();
-        _viewModel = viewModel;
-        BindingContext = viewModel;
+    }
+
+    protected override void OnHandlerChanged()
+    {
+        base.OnHandlerChanged();
+        
+        if (Handler?.MauiContext?.Services != null && _viewModel == null)
+        {
+            _viewModel = Handler.MauiContext.Services.GetRequiredService<SlateViewModel>();
+            BindingContext = _viewModel;
+        }
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await _viewModel.InitializeAsync();
+        if (_viewModel != null)
+        {
+            await _viewModel.InitializeAsync();
+        }
     }
 }
