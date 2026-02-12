@@ -91,7 +91,7 @@
                    BorderColor="Transparent">
                 <Label Text="{Binding ImportantNote}" 
                        FontSize="14" 
-                       TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark=#1a1a2e}"
+                       TextColor="#1a1a2e"
                        LineBreakMode="WordWrap"/>
             </Frame>
 

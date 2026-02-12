@@ -246,7 +246,7 @@
                                         
                                         <Button Text="Ardoise"
                                                 BackgroundColor="{StaticResource BuffaloYellow}"
-                                                TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark=#1a1a2e}"
+                                                TextColor="#1a1a2e"
                                                 CornerRadius="8"
                                                 Padding="15,5"
                                                 FontSize="12"
