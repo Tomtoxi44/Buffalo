@@ -5,6 +5,41 @@
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 
+    <!-- Buffalo Brand Colors -->
+    <Color x:Key="BuffaloRed">#e94560</Color>
+    <Color x:Key="BuffaloGreen">#4ecca3</Color>
+    <Color x:Key="BuffaloYellow">#ffc107</Color>
+    <Color x:Key="BuffaloPurple">#8b5cf6</Color>
+    
+    <!-- Light Mode Colors -->
+    <Color x:Key="LightBackground">#f8f9fa</Color>
+    <Color x:Key="LightSurface">#ffffff</Color>
+    <Color x:Key="LightSurfaceVariant">#f1f3f5</Color>
+    <Color x:Key="LightPrimary">#e94560</Color>
+    <Color x:Key="LightSecondary">#4ecca3</Color>
+    <Color x:Key="LightAccent">#8b5cf6</Color>
+    <Color x:Key="LightTextPrimary">#1a1a2e</Color>
+    <Color x:Key="LightTextSecondary">#6c757d</Color>
+    <Color x:Key="LightTextTertiary">#adb5bd</Color>
+    <Color x:Key="LightCardBg">#ffffff</Color>
+    <Color x:Key="LightCardSecondary">#f8f9fa</Color>
+    <Color x:Key="LightBorder">#e9ecef</Color>
+    
+    <!-- Dark Mode Colors -->
+    <Color x:Key="DarkBackground">#1a1a2e</Color>
+    <Color x:Key="DarkSurface">#16213e</Color>
+    <Color x:Key="DarkSurfaceVariant">#0f3460</Color>
+    <Color x:Key="DarkPrimary">#e94560</Color>
+    <Color x:Key="DarkSecondary">#4ecca3</Color>
+    <Color x:Key="DarkAccent">#a78bfa</Color>
+    <Color x:Key="DarkTextPrimary">#ffffff</Color>
+    <Color x:Key="DarkTextSecondary">#8892b0</Color>
+    <Color x:Key="DarkTextTertiary">#64748b</Color>
+    <Color x:Key="DarkCardBg">#16213e</Color>
+    <Color x:Key="DarkCardSecondary">#0f3460</Color>
+    <Color x:Key="DarkBorder">#2d3748</Color>
+
+    <!-- Legacy Colors (keeping for compatibility) -->
     <Color x:Key="Primary">#512BD4</Color>
     <Color x:Key="PrimaryDark">#ac99ea</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>

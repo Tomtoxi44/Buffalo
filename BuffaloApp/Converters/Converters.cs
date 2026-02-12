@@ -88,3 +88,21 @@ public class LeaderboardBackgroundConverter : IMultiValueConverter
         throw new NotImplementedException();
     }
 }
+
+/// <summary>
+/// Convertit IsDarkMode en texte de thème
+/// </summary>
+public class BoolToThemeTextConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is bool isDarkMode)
+            return isDarkMode ? "Mode sombre activé" : "Mode clair activé";
+        return "Mode sombre";
+    }
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}

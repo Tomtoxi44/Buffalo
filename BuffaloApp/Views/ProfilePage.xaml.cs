@@ -18,4 +18,9 @@ public partial class ProfilePage : ContentPage
         base.OnAppearing();
         await _viewModel.InitializeAsync();
     }
+
+    private void OnThemeToggled(object sender, ToggledEventArgs e)
+    {
+        _viewModel.ToggleThemeCommand.Execute(null);
+    }
 }

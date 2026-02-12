@@ -5,7 +5,7 @@
              x:Class="BuffaloApp.Views.SlatePage"
              x:DataType="vm:SlateViewModel"
              Title="Ardoise"
-             BackgroundColor="#1a1a2e">
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
 
     <RefreshView IsRefreshing="{Binding IsLoading}"
                  Command="{Binding RefreshCommand}">
@@ -14,63 +14,73 @@
                 
                 <!-- Résumé -->
                 <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
-                    <Frame BackgroundColor="#16213e" CornerRadius="15" Padding="20" BorderColor="Transparent">
+                    <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" CornerRadius="15" Padding="20" BorderColor="Transparent" HasShadow="True">
+                        <Frame.Shadow>
+                            <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,2" />
+                        </Frame.Shadow>
                         <VerticalStackLayout HorizontalOptions="Center">
                             <Label Text="📝" FontSize="32" HorizontalOptions="Center"/>
                             <Label Text="{Binding TotalOwedToYou}" 
                                    FontSize="36" 
                                    FontAttributes="Bold"
-                                   TextColor="#4ecca3"
+                                   TextColor="{StaticResource BuffaloGreen}"
                                    HorizontalOptions="Center"/>
                             <Label Text="À récupérer" 
                                    FontSize="12" 
-                                   TextColor="#8892b0"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                                    HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Frame>
                     
-                    <Frame Grid.Column="1" BackgroundColor="#16213e" CornerRadius="15" Padding="20" BorderColor="Transparent">
+                    <Frame Grid.Column="1" BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" CornerRadius="15" Padding="20" BorderColor="Transparent" HasShadow="True">
+                        <Frame.Shadow>
+                            <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,2" />
+                        </Frame.Shadow>
                         <VerticalStackLayout HorizontalOptions="Center">
                             <Label Text="💸" FontSize="32" HorizontalOptions="Center"/>
                             <Label Text="{Binding TotalOwed}" 
                                    FontSize="36" 
                                    FontAttributes="Bold"
-                                   TextColor="#e94560"
+                                   TextColor="{StaticResource BuffaloRed}"
                                    HorizontalOptions="Center"/>
                             <Label Text="À payer" 
                                    FontSize="12" 
-                                   TextColor="#8892b0"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                                    HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </Frame>
                 </Grid>
 
                 <!-- Ardoises qu'on me doit -->
-                <Frame BackgroundColor="#16213e" 
+                <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
                        CornerRadius="15" 
                        Padding="20"
-                       BorderColor="Transparent">
+                       BorderColor="Transparent"
+                       HasShadow="True">
+                    <Frame.Shadow>
+                        <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,2" />
+                    </Frame.Shadow>
                     <VerticalStackLayout Spacing="15">
                         <Label Text="🎯 À récupérer" 
                                FontSize="18" 
                                FontAttributes="Bold"
-                               TextColor="#4ecca3"/>
+                               TextColor="{StaticResource BuffaloGreen}"/>
                         <Label Text="Ces joueurs te doivent un Buffalo !"
                                FontSize="12"
-                               TextColor="#8892b0"/>
+                               TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
 
                         <CollectionView ItemsSource="{Binding SlatesOwedToYou}">
                             <CollectionView.EmptyView>
                                 <Label Text="Personne ne te doit de Buffalo"
                                        FontSize="14"
-                                       TextColor="#8892b0"
+                                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                                        HorizontalOptions="Center"
                                        Margin="0,20"/>
                             </CollectionView.EmptyView>
                             
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="vm:SlateDisplayItem">
-                                    <Frame BackgroundColor="#0f3460" 
+                                    <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardSecondary}, Dark={StaticResource DarkCardSecondary}}" 
                                            CornerRadius="10" 
                                            Padding="15"
                                            Margin="0,5"
@@ -80,19 +90,19 @@
                                                 <Label Text="{Binding OtherPlayerName}" 
                                                        FontSize="16" 
                                                        FontAttributes="Bold"
-                                                       TextColor="White"/>
+                                                       TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"/>
                                                 <Label Text="{Binding DateText}" 
                                                        FontSize="12" 
-                                                       TextColor="#8892b0"/>
+                                                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
                                                 <Label Text="{Binding LocationText}" 
                                                        FontSize="12" 
-                                                       TextColor="#8892b0"/>
+                                                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
                                             </VerticalStackLayout>
                                             
                                             <Button Grid.Column="1"
                                                     Text="✓ Réglé"
-                                                    BackgroundColor="#4ecca3"
-                                                    TextColor="#1a1a2e"
+                                                    BackgroundColor="{StaticResource BuffaloGreen}"
+                                                    TextColor="White"
                                                     CornerRadius="8"
                                                     Padding="15,8"
                                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SlateViewModel}}, Path=SettleSlateCommand}"
@@ -106,31 +116,35 @@
                 </Frame>
 
                 <!-- Ardoises que je dois -->
-                <Frame BackgroundColor="#16213e" 
+                <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
                        CornerRadius="15" 
                        Padding="20"
-                       BorderColor="Transparent">
+                       BorderColor="Transparent"
+                       HasShadow="True">
+                    <Frame.Shadow>
+                        <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,2" />
+                    </Frame.Shadow>
                     <VerticalStackLayout Spacing="15">
                         <Label Text="⏳ À payer" 
                                FontSize="18" 
                                FontAttributes="Bold"
-                               TextColor="#e94560"/>
+                               TextColor="{StaticResource BuffaloRed}"/>
                         <Label Text="Ces joueurs peuvent te redonner ton Buffalo à tout moment !"
                                FontSize="12"
-                               TextColor="#8892b0"/>
+                               TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
 
                         <CollectionView ItemsSource="{Binding SlatesOwed}">
                             <CollectionView.EmptyView>
                                 <Label Text="Tu ne dois aucun Buffalo"
                                        FontSize="14"
-                                       TextColor="#8892b0"
+                                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                                        HorizontalOptions="Center"
                                        Margin="0,20"/>
                             </CollectionView.EmptyView>
                             
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="vm:SlateDisplayItem">
-                                    <Frame BackgroundColor="#0f3460" 
+                                    <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardSecondary}, Dark={StaticResource DarkCardSecondary}}" 
                                            CornerRadius="10" 
                                            Padding="15"
                                            Margin="0,5"
@@ -141,13 +155,13 @@
                                                 <Label Text="{Binding OtherPlayerName}" 
                                                        FontSize="16" 
                                                        FontAttributes="Bold"
-                                                       TextColor="White"/>
+                                                       TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"/>
                                                 <Label Text="{Binding DateText}" 
                                                        FontSize="12" 
-                                                       TextColor="#8892b0"/>
+                                                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
                                                 <Label Text="{Binding LocationText}" 
                                                        FontSize="12" 
-                                                       TextColor="#8892b0"/>
+                                                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
                                             </VerticalStackLayout>
                                         </Grid>
                                     </Frame>

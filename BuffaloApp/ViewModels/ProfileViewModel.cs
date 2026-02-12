@@ -33,9 +33,14 @@ public partial class ProfileViewModel : ObservableObject
     [ObservableProperty]
     private string _memberSince = string.Empty;
 
+    [ObservableProperty]
+    private bool _isDarkMode = true;
+
     public ProfileViewModel(BuffaloDatabase database)
     {
         _database = database;
+        // Initialize with current theme
+        _isDarkMode = Application.Current?.RequestedTheme == AppTheme.Dark;
     }
 
     public async Task InitializeAsync()
@@ -70,6 +75,16 @@ public partial class ProfileViewModel : ObservableObject
     {
         IsRightHanded = !IsRightHanded;
         DominantHand = IsRightHanded ? "Droitier" : "Gaucher";
+    }
+
+    [RelayCommand]
+    private void ToggleTheme()
+    {
+        IsDarkMode = !IsDarkMode;
+        if (Application.Current != null)
+        {
+            Application.Current.UserAppTheme = IsDarkMode ? AppTheme.Dark : AppTheme.Light;
+        }
     }
 
     partial void OnPseudoChanged(string value)
