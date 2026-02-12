@@ -5,37 +5,41 @@
              x:Class="BuffaloApp.Views.LeaderboardPage"
              x:DataType="vm:LeaderboardViewModel"
              Title="Classement"
-             BackgroundColor="#1a1a2e">
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
 
     <Grid RowDefinitions="Auto,*" Padding="20">
         
         <!-- Mon classement -->
-        <Frame BackgroundColor="#16213e" 
+        <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
                CornerRadius="15" 
                Padding="20"
-               BorderColor="Transparent">
+               BorderColor="Transparent"
+               HasShadow="True">
+            <Frame.Shadow>
+                <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,2"/>
+            </Frame.Shadow>
             <Grid ColumnDefinitions="Auto,*,Auto">
                 <Label Text="🏆" FontSize="40" VerticalOptions="Center"/>
                 
                 <VerticalStackLayout Grid.Column="1" Margin="15,0" VerticalOptions="Center">
                     <Label Text="Mon classement" 
                            FontSize="14" 
-                           TextColor="#8892b0"/>
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
                     <Label Text="{Binding MyRank, StringFormat='#{0}'}" 
                            FontSize="28" 
                            FontAttributes="Bold"
-                           TextColor="White"/>
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"/>
                 </VerticalStackLayout>
                 
                 <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End">
                     <Label Text="{Binding MyBuffaloGiven}" 
                            FontSize="24" 
                            FontAttributes="Bold"
-                           TextColor="#4ecca3"
+                           TextColor="{StaticResource BuffaloGreen}"
                            HorizontalOptions="End"/>
                     <Label Text="Buffalo donnés" 
                            FontSize="12" 
-                           TextColor="#8892b0"
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                            HorizontalOptions="End"/>
                 </VerticalStackLayout>
             </Grid>
@@ -43,16 +47,20 @@
 
         <!-- Liste du classement -->
         <Frame Grid.Row="1" 
-               BackgroundColor="#16213e" 
+               BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
                CornerRadius="15" 
                Padding="15"
                Margin="0,15,0,0"
-               BorderColor="Transparent">
+               BorderColor="Transparent"
+               HasShadow="True">
+            <Frame.Shadow>
+                <Shadow Brush="Black" Opacity="0.1" Radius="10" Offset="0,2"/>
+            </Frame.Shadow>
             <Grid RowDefinitions="Auto,*">
                 <Label Text="🦬 Top Buffalo Hunters" 
                        FontSize="18" 
                        FontAttributes="Bold"
-                       TextColor="White"
+                       TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"
                        Margin="5,0,0,10"/>
 
                 <CollectionView Grid.Row="1" 
@@ -62,11 +70,11 @@
                             <Label Text="🦬" FontSize="48" HorizontalOptions="Center"/>
                             <Label Text="Pas encore de classement"
                                    FontSize="14"
-                                   TextColor="#8892b0"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                                    HorizontalOptions="Center"/>
                             <Label Text="Commencez à donner des Buffalo !"
                                    FontSize="12"
-                                   TextColor="#8892b0"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                                    HorizontalOptions="Center"/>
                         </VerticalStackLayout>
                     </CollectionView.EmptyView>
@@ -94,14 +102,14 @@
                                            Text="{Binding Pseudo}" 
                                            FontSize="16" 
                                            FontAttributes="Bold"
-                                           TextColor="White"
+                                           TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"
                                            VerticalOptions="Center"/>
                                     
                                     <HorizontalStackLayout Grid.Column="2" Spacing="5">
                                         <Label Text="{Binding BuffaloGiven}" 
                                                FontSize="18" 
                                                FontAttributes="Bold"
-                                               TextColor="#4ecca3"
+                                               TextColor="{StaticResource BuffaloGreen}"
                                                VerticalOptions="Center"/>
                                         <Label Text="🦬" 
                                                FontSize="16"
@@ -118,7 +126,7 @@
         <ActivityIndicator Grid.RowSpan="2"
                            IsRunning="{Binding IsLoading}"
                            IsVisible="{Binding IsLoading}"
-                           Color="#e94560"
+                           Color="{StaticResource BuffaloRed}"
                            VerticalOptions="Center"
                            HorizontalOptions="Center"/>
     </Grid>
