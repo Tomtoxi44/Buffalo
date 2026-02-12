@@ -66,7 +66,7 @@
                                FontSize="16" 
                                FontAttributes="Bold"
                                TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"/>
-                        <Label Text="{Binding IsDarkMode, StringFormat='{0}', Converter={StaticResource BoolToThemeTextConverter}}" 
+                        <Label Text="{Binding IsDarkMode, Converter={StaticResource BoolToThemeTextConverter}}" 
                                FontSize="14" 
                                TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
                     </VerticalStackLayout>
