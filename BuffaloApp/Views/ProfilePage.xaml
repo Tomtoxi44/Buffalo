@@ -5,19 +5,26 @@
              x:Class="BuffaloApp.Views.ProfilePage"
              x:DataType="vm:ProfileViewModel"
              Title="Mon Profil"
-             BackgroundColor="#1a1a2e">
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
             
             <!-- Avatar et pseudo -->
-            <Frame BackgroundColor="#16213e" 
+            <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
                    CornerRadius="15" 
                    Padding="30"
                    BorderColor="Transparent"
-                   HorizontalOptions="Center">
+                   HorizontalOptions="Center"
+                   HasShadow="True">
+                <Frame.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                            Offset="0,2" 
+                            Radius="8" 
+                            Opacity="0.15"/>
+                </Frame.Shadow>
                 <VerticalStackLayout HorizontalOptions="Center" Spacing="15">
-                    <Frame BackgroundColor="#e94560" 
+                    <Frame BackgroundColor="{StaticResource BuffaloRed}" 
                            CornerRadius="50" 
                            WidthRequest="100" 
                            HeightRequest="100"
@@ -34,37 +41,76 @@
                            Placeholder="Ton pseudo"
                            FontSize="24"
                            FontAttributes="Bold"
-                           TextColor="White"
-                           PlaceholderColor="#8892b0"
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"
+                           PlaceholderColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                            HorizontalTextAlignment="Center"
                            BackgroundColor="Transparent"/>
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Main dominante -->
-            <Frame BackgroundColor="#16213e" 
+            <!-- Mode sombre/clair -->
+            <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
                    CornerRadius="15" 
                    Padding="20"
-                   BorderColor="Transparent">
+                   BorderColor="Transparent"
+                   HasShadow="True">
+                <Frame.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                            Offset="0,2" 
+                            Radius="8" 
+                            Opacity="0.15"/>
+                </Frame.Shadow>
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout>
+                        <Label Text="🌓 Thème de l'application" 
+                               FontSize="16" 
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"/>
+                        <Label Text="{Binding IsDarkMode, StringFormat='{0}', Converter={StaticResource BoolToThemeTextConverter}}" 
+                               FontSize="14" 
+                               TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
+                    </VerticalStackLayout>
+                    
+                    <Switch Grid.Column="1"
+                            IsToggled="{Binding IsDarkMode}"
+                            OnColor="{StaticResource BuffaloPurple}"
+                            ThumbColor="White"
+                            VerticalOptions="Center"
+                            Toggled="OnThemeToggled"/>
+                </Grid>
+            </Frame>
+
+            <!-- Main dominante -->
+            <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
+                   CornerRadius="15" 
+                   Padding="20"
+                   BorderColor="Transparent"
+                   HasShadow="True">
+                <Frame.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                            Offset="0,2" 
+                            Radius="8" 
+                            Opacity="0.15"/>
+                </Frame.Shadow>
                 <Grid ColumnDefinitions="*,Auto">
                     <VerticalStackLayout>
                         <Label Text="Main dominante" 
                                FontSize="16" 
                                FontAttributes="Bold"
-                               TextColor="White"/>
+                               TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"/>
                         <Label Text="{Binding DominantHand}" 
                                FontSize="14" 
-                               TextColor="#8892b0"/>
+                               TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
                         <Label Text="(Tu dois boire avec l'AUTRE main !)" 
                                FontSize="12" 
-                               TextColor="#e94560"
+                               TextColor="{StaticResource BuffaloRed}"
                                FontAttributes="Italic"/>
                     </VerticalStackLayout>
                     
                     <Button Grid.Column="1"
                             Text="{Binding IsRightHanded, Converter={StaticResource BoolToHandEmojiConverter}}"
                             FontSize="32"
-                            BackgroundColor="#0f3460"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource LightCardSecondary}, Dark={StaticResource DarkCardSecondary}}"
                             CornerRadius="10"
                             WidthRequest="60"
                             HeightRequest="60"
@@ -73,41 +119,69 @@
             </Frame>
 
             <!-- Statistiques -->
-            <Frame BackgroundColor="#16213e" 
+            <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
                    CornerRadius="15" 
                    Padding="20"
-                   BorderColor="Transparent">
+                   BorderColor="Transparent"
+                   HasShadow="True">
+                <Frame.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                            Offset="0,2" 
+                            Radius="8" 
+                            Opacity="0.15"/>
+                </Frame.Shadow>
                 <VerticalStackLayout Spacing="15">
                     <Label Text="📊 Mes statistiques" 
                            FontSize="18" 
                            FontAttributes="Bold"
-                           TextColor="White"/>
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"/>
                     
                     <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" RowSpacing="15" ColumnSpacing="15">
-                        <Frame BackgroundColor="#0f3460" CornerRadius="10" Padding="15" BorderColor="Transparent">
+                        <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardSecondary}, Dark={StaticResource DarkCardSecondary}}" 
+                               CornerRadius="10" 
+                               Padding="15" 
+                               BorderColor="Transparent"
+                               HasShadow="True">
+                            <Frame.Shadow>
+                                <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                                        Offset="0,2" 
+                                        Radius="6" 
+                                        Opacity="0.1"/>
+                            </Frame.Shadow>
                             <VerticalStackLayout HorizontalOptions="Center">
                                 <Label Text="{Binding BuffaloGiven}" 
                                        FontSize="32" 
                                        FontAttributes="Bold"
-                                       TextColor="#4ecca3"
+                                       TextColor="{StaticResource BuffaloGreen}"
                                        HorizontalOptions="Center"/>
                                 <Label Text="Buffalo donnés" 
                                        FontSize="12" 
-                                       TextColor="#8892b0"
+                                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                                        HorizontalOptions="Center"/>
                             </VerticalStackLayout>
                         </Frame>
                         
-                        <Frame Grid.Column="1" BackgroundColor="#0f3460" CornerRadius="10" Padding="15" BorderColor="Transparent">
+                        <Frame Grid.Column="1" 
+                               BackgroundColor="{AppThemeBinding Light={StaticResource LightCardSecondary}, Dark={StaticResource DarkCardSecondary}}" 
+                               CornerRadius="10" 
+                               Padding="15" 
+                               BorderColor="Transparent"
+                               HasShadow="True">
+                            <Frame.Shadow>
+                                <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                                        Offset="0,2" 
+                                        Radius="6" 
+                                        Opacity="0.1"/>
+                            </Frame.Shadow>
                             <VerticalStackLayout HorizontalOptions="Center">
                                 <Label Text="{Binding BuffaloReceived}" 
                                        FontSize="32" 
                                        FontAttributes="Bold"
-                                       TextColor="#e94560"
+                                       TextColor="{StaticResource BuffaloRed}"
                                        HorizontalOptions="Center"/>
                                 <Label Text="Buffalo reçus" 
                                        FontSize="12" 
-                                       TextColor="#8892b0"
+                                       TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                                        HorizontalOptions="Center"/>
                             </VerticalStackLayout>
                         </Frame>
@@ -116,23 +190,30 @@
             </Frame>
 
             <!-- Info membre -->
-            <Frame BackgroundColor="#16213e" 
+            <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
                    CornerRadius="15" 
                    Padding="20"
-                   BorderColor="Transparent">
+                   BorderColor="Transparent"
+                   HasShadow="True">
+                <Frame.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                            Offset="0,2" 
+                            Radius="8" 
+                            Opacity="0.15"/>
+                </Frame.Shadow>
                 <HorizontalStackLayout Spacing="10">
                     <Label Text="📅" FontSize="20"/>
                     <Label Text="{Binding MemberSince}" 
                            FontSize="14" 
-                           TextColor="#8892b0"
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                            VerticalOptions="Center"/>
                 </HorizontalStackLayout>
             </Frame>
 
             <!-- Bouton sauvegarder -->
             <Button Text="💾 Sauvegarder"
-                    BackgroundColor="#4ecca3"
-                    TextColor="#1a1a2e"
+                    BackgroundColor="{StaticResource BuffaloGreen}"
+                    TextColor="White"
                     FontAttributes="Bold"
                     FontSize="16"
                     CornerRadius="10"

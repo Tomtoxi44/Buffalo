@@ -15,6 +15,7 @@
             <converters:BoolToHandEmojiConverter x:Key="BoolToHandEmojiConverter"/>
             <converters:BoolToSearchTextConverter x:Key="BoolToSearchTextConverter"/>
             <converters:LeaderboardBackgroundConverter x:Key="LeaderboardBackgroundConverter"/>
+            <converters:BoolToThemeTextConverter x:Key="BoolToThemeTextConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

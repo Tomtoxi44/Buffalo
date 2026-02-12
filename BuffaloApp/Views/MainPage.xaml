@@ -6,25 +6,32 @@
              x:Class="BuffaloApp.Views.MainPage"
              x:DataType="vm:MainViewModel"
              Title="Buffalo"
-             BackgroundColor="#1a1a2e">
+             BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
 
     <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20">
         
         <!-- Header avec stats -->
         <Frame Grid.Row="0" 
-               BackgroundColor="#16213e" 
+               BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
                CornerRadius="15" 
                Padding="20"
-               BorderColor="Transparent">
+               BorderColor="Transparent"
+               HasShadow="True">
+            <Frame.Shadow>
+                <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                        Offset="0,2" 
+                        Radius="8" 
+                        Opacity="0.15"/>
+            </Frame.Shadow>
             <Grid ColumnDefinitions="*,Auto">
                 <VerticalStackLayout>
                     <Label Text="🦬 Buffalo Mode" 
                            FontSize="24" 
                            FontAttributes="Bold"
-                           TextColor="White"/>
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"/>
                     <Label Text="{Binding StatusMessage}" 
                            FontSize="14" 
-                           TextColor="#8892b0"
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                            Margin="0,5,0,0"/>
                 </VerticalStackLayout>
                 
@@ -43,49 +50,92 @@
               Margin="0,15,0,0"
               ColumnSpacing="10">
             
-            <Frame BackgroundColor="#16213e" CornerRadius="10" Padding="10" BorderColor="Transparent">
+            <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
+                   CornerRadius="10" 
+                   Padding="10" 
+                   BorderColor="Transparent"
+                   HasShadow="True">
+                <Frame.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                            Offset="0,2" 
+                            Radius="6" 
+                            Opacity="0.1"/>
+                </Frame.Shadow>
                 <VerticalStackLayout HorizontalOptions="Center">
                     <Label Text="{Binding BuffaloGiven}" 
                            FontSize="24" 
                            FontAttributes="Bold"
-                           TextColor="#4ecca3"
+                           TextColor="{StaticResource BuffaloGreen}"
                            HorizontalOptions="Center"/>
                     <Label Text="Donnés" 
                            FontSize="10" 
-                           TextColor="#8892b0"
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                            HorizontalOptions="Center"/>
                 </VerticalStackLayout>
             </Frame>
             
-            <Frame Grid.Column="1" BackgroundColor="#16213e" CornerRadius="10" Padding="10" BorderColor="Transparent">
+            <Frame Grid.Column="1" 
+                   BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
+                   CornerRadius="10" 
+                   Padding="10" 
+                   BorderColor="Transparent"
+                   HasShadow="True">
+                <Frame.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                            Offset="0,2" 
+                            Radius="6" 
+                            Opacity="0.1"/>
+                </Frame.Shadow>
                 <VerticalStackLayout HorizontalOptions="Center">
                     <Label Text="{Binding BuffaloReceived}" 
                            FontSize="24" 
                            FontAttributes="Bold"
-                           TextColor="#e94560"
+                           TextColor="{StaticResource BuffaloRed}"
                            HorizontalOptions="Center"/>
                     <Label Text="Reçus" 
                            FontSize="10" 
-                           TextColor="#8892b0"
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                            HorizontalOptions="Center"/>
                 </VerticalStackLayout>
             </Frame>
             
-            <Frame Grid.Column="2" BackgroundColor="#16213e" CornerRadius="10" Padding="10" BorderColor="Transparent">
+            <Frame Grid.Column="2" 
+                   BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
+                   CornerRadius="10" 
+                   Padding="10" 
+                   BorderColor="Transparent"
+                   HasShadow="True">
+                <Frame.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                            Offset="0,2" 
+                            Radius="6" 
+                            Opacity="0.1"/>
+                </Frame.Shadow>
                 <VerticalStackLayout HorizontalOptions="Center">
                     <Label Text="{Binding SlateOwedToYou}" 
                            FontSize="24" 
                            FontAttributes="Bold"
-                           TextColor="#ffc107"
+                           TextColor="{StaticResource BuffaloYellow}"
                            HorizontalOptions="Center"/>
                     <Label Text="À récup" 
                            FontSize="10" 
-                           TextColor="#8892b0"
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                            HorizontalOptions="Center"/>
                 </VerticalStackLayout>
             </Frame>
             
-            <Frame Grid.Column="3" BackgroundColor="#16213e" CornerRadius="10" Padding="10" BorderColor="Transparent">
+            <Frame Grid.Column="3" 
+                   BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
+                   CornerRadius="10" 
+                   Padding="10" 
+                   BorderColor="Transparent"
+                   HasShadow="True">
+                <Frame.Shadow>
+                    <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                            Offset="0,2" 
+                            Radius="6" 
+                            Opacity="0.1"/>
+                </Frame.Shadow>
                 <VerticalStackLayout HorizontalOptions="Center">
                     <Label Text="{Binding SlateOwed}" 
                            FontSize="24" 
@@ -94,7 +144,7 @@
                            HorizontalOptions="Center"/>
                     <Label Text="À payer" 
                            FontSize="10" 
-                           TextColor="#8892b0"
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                            HorizontalOptions="Center"/>
                 </VerticalStackLayout>
             </Frame>
@@ -102,20 +152,27 @@
 
         <!-- Liste des joueurs à proximité -->
         <Frame Grid.Row="2" 
-               BackgroundColor="#16213e" 
+               BackgroundColor="{AppThemeBinding Light={StaticResource LightCardBg}, Dark={StaticResource DarkCardBg}}" 
                CornerRadius="15" 
                Padding="15"
                Margin="0,15,0,0"
-               BorderColor="Transparent">
+               BorderColor="Transparent"
+               HasShadow="True">
+            <Frame.Shadow>
+                <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                        Offset="0,2" 
+                        Radius="8" 
+                        Opacity="0.15"/>
+            </Frame.Shadow>
             <Grid RowDefinitions="Auto,*">
                 <HorizontalStackLayout>
                     <Label Text="📍 Joueurs à proximité" 
                            FontSize="18" 
                            FontAttributes="Bold"
-                           TextColor="White"/>
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"/>
                     <Label Text="{Binding NearbyPlayersCount, StringFormat=' ({0})'}" 
                            FontSize="18" 
-                           TextColor="#8892b0"/>
+                           TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
                 </HorizontalStackLayout>
 
                 <CollectionView Grid.Row="1" 
@@ -128,7 +185,7 @@
                             <Label Text="🔍" FontSize="48" HorizontalOptions="Center"/>
                             <Label Text="{Binding IsPlaying, Converter={StaticResource BoolToSearchTextConverter}}"
                                    FontSize="14"
-                                   TextColor="#8892b0"
+                                   TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"
                                    HorizontalOptions="Center"
                                    HorizontalTextAlignment="Center"/>
                         </VerticalStackLayout>
@@ -136,13 +193,20 @@
                     
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:NearbyPlayer">
-                            <Frame BackgroundColor="#0f3460" 
+                            <Frame BackgroundColor="{AppThemeBinding Light={StaticResource LightCardSecondary}, Dark={StaticResource DarkCardSecondary}}" 
                                    CornerRadius="10" 
                                    Padding="15"
                                    Margin="0,5"
-                                   BorderColor="Transparent">
+                                   BorderColor="Transparent"
+                                   HasShadow="True">
+                                <Frame.Shadow>
+                                    <Shadow Brush="{AppThemeBinding Light=#40000000, Dark=Transparent}" 
+                                            Offset="0,2" 
+                                            Radius="6" 
+                                            Opacity="0.1"/>
+                                </Frame.Shadow>
                                 <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="15">
-                                    <Frame BackgroundColor="#e94560" 
+                                    <Frame BackgroundColor="{StaticResource BuffaloRed}" 
                                            CornerRadius="25" 
                                            WidthRequest="50" 
                                            HeightRequest="50"
@@ -158,21 +222,21 @@
                                         <Label Text="{Binding Player.Pseudo}" 
                                                FontSize="16" 
                                                FontAttributes="Bold"
-                                               TextColor="White"/>
+                                               TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark={StaticResource DarkTextPrimary}}"/>
                                         <Label Text="{Binding DistanceDescription}" 
                                                FontSize="12" 
-                                               TextColor="#8892b0"/>
+                                               TextColor="{AppThemeBinding Light={StaticResource LightTextSecondary}, Dark={StaticResource DarkTextSecondary}}"/>
                                         <HorizontalStackLayout Spacing="10" IsVisible="{Binding SlateOwedToYou, Converter={StaticResource IntToBoolConverter}}">
                                             <Label Text="📝" FontSize="12"/>
                                             <Label Text="{Binding SlateOwedToYou, StringFormat='Ardoise: {0}'}" 
                                                    FontSize="12" 
-                                                   TextColor="#ffc107"/>
+                                                   TextColor="{StaticResource BuffaloYellow}"/>
                                         </HorizontalStackLayout>
                                     </VerticalStackLayout>
                                     
                                     <VerticalStackLayout Grid.Column="2" Spacing="5">
                                         <Button Text="BUFFALO!"
-                                                BackgroundColor="#e94560"
+                                                BackgroundColor="{StaticResource BuffaloRed}"
                                                 TextColor="White"
                                                 FontAttributes="Bold"
                                                 CornerRadius="8"
@@ -181,8 +245,8 @@
                                                 CommandParameter="{Binding .}"/>
                                         
                                         <Button Text="Ardoise"
-                                                BackgroundColor="#ffc107"
-                                                TextColor="#1a1a2e"
+                                                BackgroundColor="{StaticResource BuffaloYellow}"
+                                                TextColor="{AppThemeBinding Light={StaticResource LightTextPrimary}, Dark=#1a1a2e}"
                                                 CornerRadius="8"
                                                 Padding="15,5"
                                                 FontSize="12"
@@ -204,11 +268,11 @@
                                 Margin="0,10,0,0"
                                 IsVisible="{Binding IsScanning}">
             <ActivityIndicator IsRunning="{Binding IsScanning}" 
-                               Color="#4ecca3"
+                               Color="{StaticResource BuffaloGreen}"
                                WidthRequest="20"
                                HeightRequest="20"/>
             <Label Text=" Recherche en cours..." 
-                   TextColor="#4ecca3" 
+                   TextColor="{StaticResource BuffaloGreen}" 
                    FontSize="12"
                    VerticalOptions="Center"/>
         </HorizontalStackLayout>
