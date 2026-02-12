@@ -4,9 +4,19 @@ namespace BuffaloApp.Views;
 
 public partial class RulesPage : ContentPage
 {
-    public RulesPage(RulesViewModel viewModel)
+    public RulesPage()
     {
         InitializeComponent();
-        BindingContext = viewModel;
+    }
+
+    protected override void OnHandlerChanged()
+    {
+        base.OnHandlerChanged();
+        
+        if (Handler?.MauiContext?.Services != null && BindingContext == null)
+        {
+            var viewModel = Handler.MauiContext.Services.GetRequiredService<RulesViewModel>();
+            BindingContext = viewModel;
+        }
     }
 }

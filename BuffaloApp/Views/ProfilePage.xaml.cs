@@ -4,23 +4,35 @@ namespace BuffaloApp.Views;
 
 public partial class ProfilePage : ContentPage
 {
-    private readonly ProfileViewModel _viewModel;
+    private ProfileViewModel? _viewModel;
 
-    public ProfilePage(ProfileViewModel viewModel)
+    public ProfilePage()
     {
         InitializeComponent();
-        _viewModel = viewModel;
-        BindingContext = viewModel;
+    }
+
+    protected override void OnHandlerChanged()
+    {
+        base.OnHandlerChanged();
+        
+        if (Handler?.MauiContext?.Services != null && _viewModel == null)
+        {
+            _viewModel = Handler.MauiContext.Services.GetRequiredService<ProfileViewModel>();
+            BindingContext = _viewModel;
+        }
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await _viewModel.InitializeAsync();
+        if (_viewModel != null)
+        {
+            await _viewModel.InitializeAsync();
+        }
     }
 
     private void OnThemeToggled(object sender, ToggledEventArgs e)
     {
-        _viewModel.ToggleThemeCommand.Execute(null);
+        _viewModel?.ToggleThemeCommand.Execute(null);
     }
 }

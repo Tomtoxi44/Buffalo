@@ -4,18 +4,30 @@ namespace BuffaloApp.Views;
 
 public partial class LeaderboardPage : ContentPage
 {
-    private readonly LeaderboardViewModel _viewModel;
+    private LeaderboardViewModel? _viewModel;
 
-    public LeaderboardPage(LeaderboardViewModel viewModel)
+    public LeaderboardPage()
     {
         InitializeComponent();
-        _viewModel = viewModel;
-        BindingContext = viewModel;
+    }
+
+    protected override void OnHandlerChanged()
+    {
+        base.OnHandlerChanged();
+        
+        if (Handler?.MauiContext?.Services != null && _viewModel == null)
+        {
+            _viewModel = Handler.MauiContext.Services.GetRequiredService<LeaderboardViewModel>();
+            BindingContext = _viewModel;
+        }
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await _viewModel.InitializeAsync();
+        if (_viewModel != null)
+        {
+            await _viewModel.InitializeAsync();
+        }
     }
 }
